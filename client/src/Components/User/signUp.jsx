@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Header from "../Components/User/Header";
 import { useState } from "react";
 
 const SignUp = () => {
@@ -23,21 +22,20 @@ const SignUp = () => {
         },
         body: JSON.stringify(formData),
       });
-      const data = await res.json()
-      console.log(data,{message :'user created'});
-      setLoading(false)
-      if(data.success=== false){
-        setError(true)
-        return
+      const data = await res.json();
+      console.log(data, { message: "user created" });
+      setLoading(false);
+      if (data.success === false) {
+        setError(true);
+        return;
       }
     } catch (error) {
-           setLoading(false)
-           setError(true)
+      setLoading(false);
+      setError(true);
     }
   };
   return (
-    <>
-      <Header />
+    <div>
       <div className="p-3 max-w-lg mx-auto">
         <h1 className="text-center my-8 text-3xl font-bold">SignUp</h1>
 
@@ -67,7 +65,7 @@ const SignUp = () => {
             onChange={handleChange}
           />
           <button className="bg-slate-950 text-white p-3 rounded-lg uppercase hover:opacity-90 disabled:opacity-80 mt-4">
-            {loading ? 'loading...': 'Signup'}
+            {loading ? "loading..." : "Signup"}
           </button>
         </form>
         <div className="flex gap-2 mt-5">
@@ -76,9 +74,11 @@ const SignUp = () => {
             <span className="text-blue-700">Sign In</span>
           </Link>
         </div>
-        <p className="text-red-600 mt-3 text-center">{error && 'Something went wrong'}</p>
+        <p className="text-red-600 mt-3 text-center">
+          {error && "Something went wrong"}
+        </p>
       </div>
-    </>
+    </div>
   );
 };
 
