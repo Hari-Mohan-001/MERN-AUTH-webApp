@@ -6,6 +6,7 @@ import SignUP from "./Pages/SignUp";
 
 function App() {
   return (
+    
     <>
       <Routes> 
         <Route path="/" element={<Home />} />
