@@ -23,8 +23,35 @@ export const signIn = async (req, res, next) => {
     const validPassword = bcrypt.compareSync(password, validUser.password);
     if (!validPassword) return next(errorHandler(401, "Invalid Credentials"));
     generateToken(res, validUser._id);
-    const {password:hashedPassword , ...rest} = validUser._doc
+    const { password: hashedPassword, ...rest } = validUser._doc;
     res.status(200).json(rest);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const googleSignIn = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email: email });
+    if (user) {
+      generateToken(res, user._id);
+      const { password, ...rest } = user._doc;
+      res.status(200).json(rest);
+    } else {
+      const randomPassword = Math.random().toString().slice(-8);
+      const hashedPassword = bcrypt.hashSync(randomPassword, 10);
+      const newUser = new User({
+        userName: req.body.name,
+        email: req.body.email,
+        password: hashedPassword,
+        profileImage: req.body.image,
+      });
+      await newUser.save();
+      generateToken(res, newUser._id)
+      const { password, ...rest } = newUser._doc;
+      res.status(200).json(rest);
+    }
   } catch (error) {
     next(error);
   }

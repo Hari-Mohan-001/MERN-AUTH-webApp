@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
         unique:true
+    },
+    profileImage:{
+        type:String,
+        default:'https://www.hotelbooqi.com/wp-content/uploads/2021/12/128-1280406_view-user-icon-png-user-circle-icon-png.png',
     }
 },{timestamps:true})
 

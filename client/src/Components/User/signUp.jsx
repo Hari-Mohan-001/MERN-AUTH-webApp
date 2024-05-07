@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import GoogleSign from "./GoogleSign";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
@@ -67,6 +68,7 @@ const SignUp = () => {
           <button className="bg-slate-950 text-white p-3 rounded-lg uppercase hover:opacity-90 disabled:opacity-80 mt-4">
             {loading ? "loading..." : "Signup"}
           </button>
+          <GoogleSign/>
         </form>
         <div className="flex gap-2 mt-5">
           <p>Having an Account?</p>

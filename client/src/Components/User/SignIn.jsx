@@ -2,6 +2,7 @@ import { Link , useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {useDispatch, useSelector} from 'react-redux'
 import { signInFailure,signInStart,signInSuccess } from "../../Redux/User/User";
+import GoogleSign from "./GoogleSign";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
@@ -63,6 +64,7 @@ const SignIn = () => {
           <button className="bg-slate-950 text-white p-3 rounded-lg uppercase hover:opacity-90 disabled:opacity-80 mt-4">
             {loading ? "loading..." : "login"}
           </button>
+          <GoogleSign/>
         </form>
         <div className="flex gap-2 mt-5">
           <p>Don't have an Account?</p>
