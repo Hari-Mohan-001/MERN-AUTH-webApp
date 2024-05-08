@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   updateStart, updateSuccess,updateFailure,
-  deleteStart,deleteSuccess,deleteFailure
+  deleteStart,deleteSuccess,deleteFailure,
+  signOutSuccess
 } from "../../Redux/User/User";
 
 import {
@@ -100,6 +101,15 @@ const Profile = () => {
         dispatch(deleteFailure(error))
       }
   }
+
+  const handleSignOut = async()=>{
+    try {
+      await fetch('/api/userAuth/signOut')
+    dispatch(signOutSuccess())
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className="p-4 max-w-lg mx-auto">
       <h1 className="text-center my-8 text-3xl font-bold">Profile</h1>
@@ -161,7 +171,7 @@ const Profile = () => {
       </form>
       <div className="flex justify-between mt-4">
         <span onClick={handleDelete} className="text-red-600 cursor-pointer">Delete Account</span>
-        <span className="cursor-pointer text-blue-600">Sign Out</span>
+        <span onClick={handleSignOut} className="cursor-pointer text-blue-600">Sign Out</span>
       </div>
 
       <p className="text-green-600 mt-4">

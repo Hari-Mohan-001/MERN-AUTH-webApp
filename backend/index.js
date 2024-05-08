@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import userRoutes from "./Routes/userRoute.js";
 import userAuthRoutes from "./Routes/userAuth.js";
 import cookieParser from "cookie-parser";
+import adminRouter from "./Routes/AdminRoutes.js";
 dotenv.config();
 
 mongoose
@@ -27,6 +28,8 @@ app.listen(port, () => {
 
 app.use("/api/user", userRoutes);
 app.use("/api/userAuth", userAuthRoutes);
+app.use("/api/admin", adminRouter);
+
 
 app.use((err, req,res,next)=>{
     const statusCode = err.statusCode||500

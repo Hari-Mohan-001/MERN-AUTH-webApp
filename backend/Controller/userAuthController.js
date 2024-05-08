@@ -18,7 +18,7 @@ export const signUp = async (req, res, next) => {
 export const signIn = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const validUser = await User.findOne({ email });
+    const validUser = await User.findOne({ email,isAdmin:false });
     if (!validUser) return next(errorHandler(401, "Invalid Credentials"));
     const validPassword = bcrypt.compareSync(password, validUser.password);
     if (!validPassword) return next(errorHandler(401, "Invalid Credentials"));
@@ -56,3 +56,7 @@ export const googleSignIn = async (req, res, next) => {
     next(error);
   }
 };
+
+export const signOut = async(req,res,next)=>{
+  res.clearCookie('accessToken').status(200).json("signout success")
+}
