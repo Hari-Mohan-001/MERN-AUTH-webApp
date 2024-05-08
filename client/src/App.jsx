@@ -5,6 +5,9 @@ import SignInPage from "./Pages/SignInPage";
 import SignUpPage from "./Pages/SignUpPage";
 import ProfilePage from "./Pages/ProfilePage";
 import PrivateRoute from "./Components/PrivateRoute";
+import AdminSignIn from "./Pages/AdminSignIn";
+import AdminDashBoardPage from "./Pages/AdminDashBoardPage";
+import AdminEditUserPage from "./Pages/AdminEditUserPage";
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<ProfilePage />} />
         </Route>
+        <Route path="/admin/signIn" element={<AdminSignIn/>}/>
+        <Route path="/admin/dashboard" element={<AdminDashBoardPage/>}/>
+        <Route path="/admin/editUser/:userId" element={<AdminEditUserPage/>}/>
       </Routes>
     </>
   );

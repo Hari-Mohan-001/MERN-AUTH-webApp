@@ -1,69 +1,65 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  signInFailure,
-  signInStart,
-  signInSuccess,
-  setErrorToNull,
-} from "../../Redux/User/User";
-import GoogleSign from "./GoogleSign";
+  adminSignInFailure,
+  adminSignInStart,
+  adminSignInSuccess,
+} from "../../Redux/Admin/Admin";
+import { useNavigate } from "react-router-dom";
 
-const SignIn = () => {
+const AdminLogin = () => {
   const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState();
-  const { loading, error, currentUser } = useSelector((state) => state.user);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setErrorToNull());
-    if (currentUser) {
-      navigate("/profile");
-    }
-  }, [currentUser, navigate]);
+  const navigate = useNavigate()
+  const { loading, error, adminDetails } = useSelector((state) => state.admin);
+useEffect(()=>{
+  if(adminDetails){
+    navigate("/admin/dashboard")
+  }
+},[adminDetails, navigate])
 
   const handleChange = (e) => {
     setErrorMessage("");
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      setErrorMessage("All Feilds are mandatory");
+      setErrorMessage("Please fill out the feilds");
       return;
     }
     try {
-      dispatch(signInStart());
-      const res = await fetch("/api/userAuth/signIn", {
-        method: "post",
+      dispatch(adminSignInStart());
+      const res = await fetch("/api/admin/signIn", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-      const data = await res.json();
-
+      const data =await res.json();
+      
       if (data.success === false) {
-        dispatch(signInFailure(data));
+        dispatch(adminSignInFailure(data));
         return;
       }
-      dispatch(signInSuccess(data));
-      navigate("/profile");
+     
+      dispatch(adminSignInSuccess(data));
+      navigate("/admin/dashboard")
     } catch (error) {
-      dispatch(signInFailure(error));
+        dispatch(adminSignInFailure(error))
     }
   };
   return (
     <div>
       <div className="p-3 max-w-lg mx-auto">
-        <h1 className="text-center my-8 text-3xl font-bold">Login</h1>
+        <h1 className="text-center my-8 text-3xl font-bold">Admin Login</h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <label>Email</label>
           <input
-            type="email"
+            type="text"
             placeholder="Email"
             id="email"
             className="bg-slate-100 p-3 rounded-lg"
@@ -80,14 +76,7 @@ const SignIn = () => {
           <button className="bg-slate-950 text-white p-3 rounded-lg uppercase hover:opacity-90 disabled:opacity-80 mt-4">
             {loading ? "loading..." : "login"}
           </button>
-          <GoogleSign />
         </form>
-        <div className="flex gap-2 mt-5">
-          <p>Don't have an Account?</p>
-          <Link to={"/signUp"}>
-            <span className="text-blue-700">Sign Up</span>
-          </Link>
-        </div>
         <p className="text-red-600 mt-3 text-center">
           {error ? error.message || "Something went wrong" : ""}
         </p>
@@ -99,4 +88,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default AdminLogin;
