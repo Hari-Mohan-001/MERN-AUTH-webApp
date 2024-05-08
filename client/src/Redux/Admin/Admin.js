@@ -1,30 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState ={
-    adminDetails:null,
-    error:false,
-    loading:false
-} 
+const initialState = {
+  adminDetails: null,
+  error: false,
+  loading: false,
+};
 
 const adminSlice = createSlice({
-    name:"admin",
-    initialState,
-    reducers:{
-        adminSignInStart:(state)=>{
-            state.loading= true
-        },
-        adminSignInSuccess:(state,action)=>{
-            state.adminDetails= action.payload,
-            state.loading=false,
-            state.error=false
-        },
-        adminSignInFailure:(state,action)=>{
-            state.loading=false,
-            state.error= action.payload
-        }
-    }
-})
+  name: "admin",
+  initialState,
+  reducers: {
+    adminSignInStart: (state) => {
+      state.loading = true;
+    },
+    adminSignInSuccess: (state, action) => {
+      (state.adminDetails = action.payload),
+        (state.loading = false),
+        (state.error = false);
+    },
+    adminSignInFailure: (state, action) => {
+      (state.loading = false), (state.error = action.payload);
+    },
+    adminSignOutSuccess: (state) => {
+      (state.loading = false), (state.adminDetails = null);
+      state.error = null;
+    },
+  },
+});
 
-export const {adminSignInStart,adminSignInSuccess , adminSignInFailure} = adminSlice.actions
+export const {
+  adminSignInStart,
+  adminSignInSuccess,
+  adminSignInFailure,
+  adminSignOutSuccess,
+} = adminSlice.actions;
 
-export default adminSlice.reducer
+export default adminSlice.reducer;

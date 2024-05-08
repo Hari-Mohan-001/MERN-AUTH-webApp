@@ -59,7 +59,7 @@ useEffect(()=>{
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <label>Email</label>
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             id="email"
             className="bg-slate-100 p-3 rounded-lg"
