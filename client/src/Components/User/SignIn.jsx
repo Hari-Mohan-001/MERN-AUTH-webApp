@@ -1,10 +1,14 @@
 import { Link , useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {useDispatch, useSelector} from 'react-redux'
-import { signInFailure,signInStart,signInSuccess } from "../../Redux/User/User";
+import { signInFailure,signInStart,signInSuccess,setErrorToNull } from "../../Redux/User/User";
 import GoogleSign from "./GoogleSign";
 
 const SignIn = () => {
+
+  useEffect(()=>{
+    dispatch(setErrorToNull())
+  },[])
   const [formData, setFormData] = useState({});
  const {loading,error} = useSelector((state)=> state.user)
 
