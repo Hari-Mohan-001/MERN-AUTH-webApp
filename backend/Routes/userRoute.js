@@ -4,6 +4,6 @@ import { updateUser } from '../Controller/userController.js'
 
 const router = express.Router()
 
-router.post("/upadate/:id" , verifyToken, updateUser)
+router.post("/update/:id" , verifyToken, updateUser)
 
 export default router

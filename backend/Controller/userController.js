@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs"
 import User from "../Model/userModel.js"
 
 export const updateUser = async(req,res,next)=>{
-    if(req.user.id!= req.params.id){
+    if(req.user.userId != req.params.id){
         return next(errorHandler(401, "User is allowed to update"))
     }
     try {
