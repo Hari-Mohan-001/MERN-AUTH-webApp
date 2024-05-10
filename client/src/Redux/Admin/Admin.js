@@ -4,6 +4,7 @@ const initialState = {
   adminDetails: null,
   error: false,
   loading: false,
+  count:0
 };
 
 const adminSlice = createSlice({
@@ -25,6 +26,7 @@ const adminSlice = createSlice({
       (state.loading = false), (state.adminDetails = null);
       state.error = null;
     },
+   
   },
 });
 
@@ -33,6 +35,7 @@ export const {
   adminSignInSuccess,
   adminSignInFailure,
   adminSignOutSuccess,
+  increment,decrement
 } = adminSlice.actions;
 
 export default adminSlice.reducer;

@@ -71,6 +71,18 @@ export const updateUser = async (req, res, next) => {
  
 }
 
+export const createUser = async (req, res, next) => {
+  try {
+    const { userName, email, password } = req.body;
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    const user = new User({ userName, email, password: hashedPassword });
+    await user.save();
+    res.status(200).json({ messge: "user created" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const signOut = async(req,res,next)=>{
   try {
     res.clearCookie('adminAccessToken').status(200).json("signout success")

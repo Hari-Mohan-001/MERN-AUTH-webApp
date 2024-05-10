@@ -10,7 +10,7 @@ const Header = () => {
         <div className='flex justify-between items-center max max-w-7xl mx-auto p-3'>
             <h1 className='font-bold'>User Management</h1>
             <ul className='flex gap-4'>
-                <Link to={'/'}><li>Home</li></Link>
+                <Link to={'/home'}><li>Home</li></Link>
                 <Link to={'/profile'}>
                   {currentUser ? (
                     <img className='w-7 h-7 rounded-full object-cover' src={currentUser.profileImage} alt="image" />

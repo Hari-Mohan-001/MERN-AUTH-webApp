@@ -6,14 +6,27 @@ const SignUp = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [passwordError, setpasswordError] = useState();
   const navigate = useNavigate()
+
   const handleChange = (e) => {
+    setError("")
+    setpasswordError("")
     setFormData({ ...formData, [e.target.id]: e.target.value });
-    console.log(formData);
+   
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!formData.userName || !formData.email || !formData.password){
+      setError('All feilds are mandatory')
+      return
+    }
+    const password = formData.password
+    if(password.length<8 || !/\d/.test(password) || !/[\w_]/.test(password)){
+      setpasswordError("Password must have atlest 8 characters & must have one number and special character")
+      return
+    }
     try {
       setLoading(true);
       setError(false);
@@ -39,7 +52,7 @@ const SignUp = () => {
   };
   return (
     <div>
-      <div className="p-3 max-w-lg mx-auto">
+      <div className="p-2 max-w-lg mx-auto">
         <h1 className="text-center my-8 text-3xl font-bold">SignUp</h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
@@ -48,15 +61,15 @@ const SignUp = () => {
             type="text"
             placeholder="Username"
             id="userName"
-            className="bg-slate-100 p-3 rounded-lg"
+            className="bg-slate-100 p-2 rounded-lg"
             onChange={handleChange}
           />
           <label>Email</label>
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             id="email"
-            className="bg-slate-100 p-3 rounded-lg"
+            className="bg-slate-100 p-2 rounded-lg"
             onChange={handleChange}
           />
           <label>Password</label>
@@ -64,9 +77,10 @@ const SignUp = () => {
             type="password"
             placeholder="password"
             id="password"
-            className="bg-slate-100 p-3 rounded-lg"
+            className="bg-slate-100 p-2 rounded-lg"
             onChange={handleChange}
           />
+          <p className="text-red-600">{passwordError ? passwordError :""}</p>
           <button className="bg-slate-950 text-white p-3 rounded-lg uppercase hover:opacity-90 disabled:opacity-80 mt-4">
             {loading ? "loading..." : "Signup"}
           </button>
@@ -79,7 +93,7 @@ const SignUp = () => {
           </Link>
         </div>
         <p className="text-red-600 mt-3 text-center">
-          {error && "Something went wrong"}
+          {error ? error :""}
         </p>
       </div>
     </div>

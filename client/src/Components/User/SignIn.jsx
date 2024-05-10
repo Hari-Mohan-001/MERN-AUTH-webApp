@@ -19,7 +19,7 @@ const SignIn = () => {
   useEffect(() => {
     dispatch(setErrorToNull());
     if (currentUser) {
-      navigate("/profile");
+      navigate("/home");
     }
   }, [currentUser, navigate]);
 
@@ -50,7 +50,7 @@ const SignIn = () => {
         return;
       }
       dispatch(signInSuccess(data));
-      navigate("/profile");
+      navigate("/home");
     } catch (error) {
       dispatch(signInFailure(error));
     }
